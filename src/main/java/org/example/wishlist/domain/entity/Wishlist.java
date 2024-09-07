@@ -1,30 +1,36 @@
 package org.example.wishlist.domain.entity;
 
 import lombok.Getter;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @Document(collection = "wishlists")
 public class Wishlist {
 
-    public static Wishlist create(final Integer id, final List<Product> items) {
+    public static Wishlist create(final String id, final List<Product> items) {
         return new Wishlist(id, items);
     }
 
+    @Id
     @Getter
-    private final Integer id;
+    private final String id;
 
     private final List<Product> items;
 
-    private Wishlist(final Integer id, final List<Product> items) {
-        this.id = Objects.requireNonNull(id);
+    private Wishlist(final String id, final List<Product> items) {
+        if (items == null || items.isEmpty()) {
+            throw new IllegalArgumentException("Wishlist id cannot be null or empty");
+        }
+
+        this.id = id;
 
         if (items == null || items.isEmpty()) {
             throw new IllegalArgumentException("Items cannot be empty or null");
         }
+
         this.items = items;
     }
 

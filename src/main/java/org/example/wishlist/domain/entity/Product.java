@@ -1,20 +1,21 @@
 package org.example.wishlist.domain.entity;
 
 import lombok.Getter;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 @Document(collection = "products")
 public class Product {
 
-    public static Product create(final Integer id, final String name, final String imageUrl, final BigDecimal price) {
+    public static Product create(final String id, final String name, final String imageUrl, final BigDecimal price) {
         return new Product(id, name, imageUrl, price);
     }
 
+    @Id
     @Getter
-    private final Integer id;
+    private final String id;
 
     @Getter
     private final String name;
@@ -25,8 +26,12 @@ public class Product {
     @Getter
     private final BigDecimal price;
 
-    private Product(final Integer id, final String name, final String imageUrl, final BigDecimal price) {
-        this.id = Objects.requireNonNull(id, "Product id cannot be null");
+    private Product(final String id, final String name, final String imageUrl, final BigDecimal price) {
+        if (id == null || id.trim().isEmpty()) {
+            throw new IllegalArgumentException("Product id cannot be null or empty");
+        }
+
+        this.id = id;
 
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Product name cannot be null or empty");

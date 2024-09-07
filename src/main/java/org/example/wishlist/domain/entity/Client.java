@@ -2,15 +2,15 @@ package org.example.wishlist.domain.entity;
 
 import lombok.Getter;
 import org.example.wishlist.domain.exception.AlreadyClientWishlistException;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Objects;
 import java.util.Optional;
 
 @Document(collection = "clients")
 public class Client {
 
-    public static Client create(final Integer id, final String name) {
+    public static Client create(final String id, final String name) {
         return new Client(id, name, null);
     }
 
@@ -18,16 +18,21 @@ public class Client {
         return new Client(client.getId(), client.getName(), wishlist);
     }
 
+    @Id
     @Getter
-    private final Integer id;
+    private final String id;
 
     @Getter
     private final String name;
 
     private final Wishlist wishlist;
 
-    private Client(final Integer id, final String name, final Wishlist wishlist) {
-        this.id = Objects.requireNonNull(id, "Client id cannot be null");
+    private Client(final String id, final String name, final Wishlist wishlist) {
+        if (id == null || id.trim().isEmpty()) {
+            throw new IllegalArgumentException("Client id cannot be null or empty");
+        }
+
+        this.id = id;
 
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Client name cannot be null or empty");
