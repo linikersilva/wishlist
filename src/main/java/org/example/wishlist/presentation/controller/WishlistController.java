@@ -29,6 +29,13 @@ public class WishlistController {
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/clientId/{clientId}/productId/{productId}")
+    public ResponseEntity<WishlistResponseDto> checkIfProductIsInClientWishlist(@PathVariable String clientId,
+                                                                                @PathVariable String productId) {
+        WishlistResponseDto response = wishlistService.checkIfProductIsInClientWishlist(clientId, productId);
+        return ResponseEntity.ok().body(response);
+    }
+
     @PostMapping
     public ResponseEntity<WishlistResponseDto> addProductToClientWishlist(@RequestBody @Valid
                                                                           WishlistRequestDto wishlistRequestDTO) {
