@@ -5,6 +5,7 @@ import org.example.wishlist.application.WishlistService;
 import org.example.wishlist.presentation.dto.request.WishlistRequestDto;
 import org.example.wishlist.presentation.dto.response.WishlistResponseDto;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,13 @@ public class WishlistController {
     public ResponseEntity<WishlistResponseDto> addProductToClientWishlist(@RequestBody @Valid
                                                                           WishlistRequestDto wishlistRequestDTO) {
         WishlistResponseDto response = wishlistService.addProductToClientWishlist(wishlistRequestDTO);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<WishlistResponseDto> removeProductFromClientWishlist(@RequestBody @Valid
+                                                                               WishlistRequestDto wishlistRequestDTO) {
+        WishlistResponseDto response = wishlistService.removeProductFromClientWishlist(wishlistRequestDTO);
         return ResponseEntity.ok().body(response);
     }
 }

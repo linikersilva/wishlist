@@ -40,18 +40,30 @@ public class Client {
     }
 
     public void addProductToClientWishlist(Product product) {
-        boolean wishlistAlreadyContainsProduct = this.wishlist.stream()
-                .anyMatch(wishlistProduct -> wishlistProduct.getId().equals(product.getId()));
-        if (product == null || wishlistAlreadyContainsProduct) {
-            throw new IllegalArgumentException("Product cannot be null or already in the wishlist");
+        if (product == null) {
+            throw new IllegalArgumentException("Product cannot be null");
         }
+
+        if (this.wishlist.contains(product)) {
+            throw new IllegalArgumentException("Product is already in the wishlist");
+        }
+
         this.wishlist.add(product);
     }
 
     public void removeProductFromClientWishlist(Product product) {
+        if (this.wishlist.isEmpty()) {
+            throw new IllegalArgumentException("Client's wishlist is empty");
+        }
+
         if (product == null) {
             throw new IllegalArgumentException("Product cannot be null");
         }
-        this.wishlist.remove(product);
+
+        if (!this.wishlist.contains(product)) {
+            throw new IllegalArgumentException("Product is not in the wishlist");
+        }
+
+        this.wishlist.removeIf(wishlistProduct -> wishlistProduct.getId().equals(product.getId()));
     }
 }
