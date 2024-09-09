@@ -7,23 +7,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "categories")
 public class Category {
 
-    public static Category create(final String id, final String name) {
-        return new Category(id, name);
+    public static Category create(final String name) {
+        return new Category(name);
     }
 
     @Id
     @Getter
-    private final String id;
+    private String id;
 
     @Getter
     private final String name;
 
-    private Category(final String id, final String name) {
-        if (id == null || id.trim().isEmpty()) {
-            throw new IllegalArgumentException("Category id cannot be null or empty");
-        }
-        this.id = id;
-
+    private Category(final String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Category name cannot be null or empty");
         }

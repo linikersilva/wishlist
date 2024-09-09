@@ -9,13 +9,13 @@ import java.math.BigDecimal;
 @Document(collection = "products")
 public class Product {
 
-    public static Product create(final String id, final String name, final String imageUrl, final BigDecimal price) {
-        return new Product(id, name, imageUrl, price);
+    public static Product create(final String name, final String imageUrl, final BigDecimal price, final Category category) {
+        return new Product(name, imageUrl, price, category);
     }
 
     @Id
     @Getter
-    private final String id;
+    private String id;
 
     @Getter
     private final String name;
@@ -26,13 +26,10 @@ public class Product {
     @Getter
     private final BigDecimal price;
 
-    private Product(final String id, final String name, final String imageUrl, final BigDecimal price) {
-        if (id == null || id.trim().isEmpty()) {
-            throw new IllegalArgumentException("Product id cannot be null or empty");
-        }
+    @Getter
+    private final Category category;
 
-        this.id = id;
-
+    private Product(final String name, final String imageUrl, final BigDecimal price, final Category category) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Product name cannot be null or empty");
         }
@@ -50,6 +47,8 @@ public class Product {
         }
 
         this.price = price;
+
+        this.category = category;
     }
 
 }
