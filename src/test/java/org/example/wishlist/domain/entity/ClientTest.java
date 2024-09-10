@@ -20,8 +20,8 @@ import static org.mockito.Mockito.mock;
 
 class ClientTest {
 
-    static Client client;
-    static Product product;
+    private Client client;
+    private Product product;
 
     @BeforeEach
     void setup() {
