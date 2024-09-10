@@ -59,10 +59,9 @@ class AddProductToWishlistUseCaseImplTest {
         when(clientRepository.findById(anyString()))
                 .thenReturn(Optional.empty());
 
-        ClientNotFoundException clientNotFoundException =
-                assertThrows(ClientNotFoundException.class, () -> addProductToWishlistUseCaseImpl.execute("not exists", "1"));
-
-        assertEquals("Client not found", clientNotFoundException.getMessage());
+        assertThrows(ClientNotFoundException.class,
+                () -> addProductToWishlistUseCaseImpl.execute("not exists", "1"),
+                "Client not found");
     }
 
     @DisplayName("The method 'execute' should throw a 'ProductNotFoundException' with 'Product not found' message when the provided productId does not exist.")
@@ -74,9 +73,8 @@ class AddProductToWishlistUseCaseImplTest {
         when(productRepository.findById(anyString()))
                 .thenReturn(Optional.empty());
 
-        ProductNotFoundException productNotFoundException =
-                assertThrows(ProductNotFoundException.class, () -> addProductToWishlistUseCaseImpl.execute("1", "not exists"));
-
-        assertEquals("Product not found", productNotFoundException.getMessage());
+        assertThrows(ProductNotFoundException.class,
+                () -> addProductToWishlistUseCaseImpl.execute("1", "not exists"),
+                "Product not found");
     }
 }

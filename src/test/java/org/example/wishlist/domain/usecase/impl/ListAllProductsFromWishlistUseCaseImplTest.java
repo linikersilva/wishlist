@@ -50,9 +50,8 @@ class ListAllProductsFromWishlistUseCaseImplTest {
         when(clientRepository.findById(anyString()))
                 .thenReturn(Optional.empty());
 
-        ClientNotFoundException clientNotFoundException =
-                assertThrows(ClientNotFoundException.class, () -> listAllProductsFromWishlistUseCaseImpl.execute("not exists"));
-
-        assertEquals("Client not found", clientNotFoundException.getMessage());
+        assertThrows(ClientNotFoundException.class,
+                () -> listAllProductsFromWishlistUseCaseImpl.execute("not exists"),
+                "Client not found");
     }
 }
