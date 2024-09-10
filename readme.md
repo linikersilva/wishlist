@@ -7,7 +7,18 @@
 # Detalhes do Projeto
 
 O objetivo era desenvolver um serviço HTTP resolvendo a
-funcionalidade de Wishlist do cliente. Esse serviço deveria atender
+funcionalidade de Wishlist do cliente.
+
+A ideia era que esse serviço faria parte de uma plataforma
+construída em uma arquitetura baseada em micro-serviços.
+Portanto não era necessário se preocupar com a gestão das informações de
+Produtos e/ou Clientes, o foco era apenas no serviço da
+Wishlist.
+
+Para proteger o bom funcionamento do ecossistema, era importante estabelecer alguns limites, dessa forma a Wishlist do cliente
+deveria possuir um limite máximo de 20 produtos.
+
+Esse serviço deveria atender
 os seguintes requisitos:
 - Adicionar um produto na Wishlist do cliente;
 - Remover um produto da Wishlist do cliente;
